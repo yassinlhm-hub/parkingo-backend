@@ -38,8 +38,7 @@ public class AuthService {
         );
         user = userRepository.save(user);
 
-        String token = jwtService.generateToken(user.getId(), user.getRole().name());
-        return new AuthResponse(token, user.getId(), user.getFullName(), user.getRole().name());
+        return toAuthResponse(user);
     }
 
     public AuthResponse login(LoginRequest req) {
@@ -50,7 +49,11 @@ public class AuthService {
             throw new ApiException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
         }
 
+        return toAuthResponse(user);
+    }
+
+    private AuthResponse toAuthResponse(User user) {
         String token = jwtService.generateToken(user.getId(), user.getRole().name());
-        return new AuthResponse(token, user.getId(), user.getFullName(), user.getRole().name());
+        return new AuthResponse(token, user.getId(), user.getFullName(), user.getRole().name(), user.getEmail());
     }
 }
