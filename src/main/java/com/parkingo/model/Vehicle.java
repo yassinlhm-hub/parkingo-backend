@@ -1,5 +1,6 @@
 package com.parkingo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
@@ -25,6 +26,10 @@ public class Vehicle {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
+    @JsonIgnore
+    @Column(nullable = false)
+    private boolean deleted = false;
+
     protected Vehicle() {}
 
     public Vehicle(UUID ownerId, String plate, String brand, String model, String color) {
@@ -41,4 +46,8 @@ public class Vehicle {
     public String getBrand() { return brand; }
     public String getModel() { return model; }
     public String getColor() { return color; }
+
+    @JsonIgnore
+    public boolean isDeleted() { return deleted; }
+    public void markDeleted() { this.deleted = true; }
 }

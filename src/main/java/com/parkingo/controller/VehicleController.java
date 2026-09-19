@@ -31,4 +31,10 @@ public class VehicleController {
     public ResponseEntity<List<Vehicle>> mine(@AuthenticationPrincipal UUID userId) {
         return ResponseEntity.ok(vehicleService.listForOwner(userId));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@AuthenticationPrincipal UUID userId, @PathVariable UUID id) {
+        vehicleService.delete(userId, id);
+        return ResponseEntity.noContent().build();
+    }
 }
