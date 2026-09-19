@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: parkingo-backend
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:parkingo}
+    username: ${DB_USER:parkingo}
+    password: ${DB_PASSWORD:parkingo}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+parkingo:
+  jwt:
+    secret: ${JWT_SECRET:change-this-secret-in-production-min-32-chars-long}
+    expiration-minutes: 1440
+
+logging:
+  level:
+    com.parkingo: INFO

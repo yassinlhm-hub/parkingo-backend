@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: parkingo-postgres
+    environment:
+      POSTGRES_DB: parkingo
+      POSTGRES_USER: parkingo
+      POSTGRES_PASSWORD: parkingo
+    ports:
+      - "5432:5432"
+    volumes:
+      - parkingo-data:/var/lib/postgresql/data
+
+volumes:
+  parkingo-data:
